@@ -34,7 +34,7 @@ const App = () => {
             "content-type": "multipart/form-data"
           }
         };
-        const url = "https://image-loadb-com61um3qhxs-d45d9c7fb0d12075.elb.eu-west-3.amazonaws.com:8000/apps/srcnn/enhance";
+        const url = "http://image-loadb-com61um3qhxs-d45d9c7fb0d12075.elb.eu-west-3.amazonaws.com:8000/apps/srcnn/enhance";
     
         const res = await axios.post(url, formData, config);
       const urls = window.URL.createObjectURL(new Blob([res.data]),{ type: "image/jpeg" });
