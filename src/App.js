@@ -34,7 +34,7 @@ const App = () => {
             "content-type": "multipart/form-data"
           }
         };
-        const url = "http://35.180.204.41:8000/apps/srcnn/enhance";
+        const url = "http://13.39.13.136:8000/apps/srcnn/enhance";
     
         const res = await axios.post(url, formData, config);
       const urls = window.URL.createObjectURL(new Blob([res.data]),{ type: "image/jpeg" });
