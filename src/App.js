@@ -15,8 +15,8 @@ const App = () => {
     };
  
     const onSubmit = (e) => {
-        // e.preventDefault() 
-        // alert(URL.createObjectURL(selectedImage))
+        e.preventDefault() 
+        alert("Enhancing image might take couple of minutes")
         uploadImage(selectedImage)
     }
      
@@ -36,7 +36,7 @@ const App = () => {
         };
         const url = "http://image-loadb-kcw80t7cfj6v-c88f9f531e9e21e1.elb.eu-west-3.amazonaws.com:8000/apps/srcnn/enhance";
     
-        const res = await axios.post(url, formData, config);
+      const res = await axios.post(url, formData, config);
       const urls = window.URL.createObjectURL(new Blob([res.data]),{ type: "image/jpeg" });
 			const link = document.createElement("a");
 			link.href = urls;
@@ -66,21 +66,6 @@ const App = () => {
                 </div> <br/>
                 <button type="submit" className="btn btn-success" >Enhance</button>
             </form>
-
-        {/* {selectedImage && (
-          <div style={styles.preview}>
-            <img
-            width="400"
-            height="400"
-              src={URL.createObjectURL(selectedImage)}
-              style={styles.image}
-              alt="Thumb"
-            />
-            <button onClick={removeSelectedImage} style={styles.delete}>
-              Remove This Image
-            </button>
-          </div>
-        )} */}
         </div>
       </div>
     </>
