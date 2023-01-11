@@ -1,0 +1,113 @@
+[
+    {
+        "skill": "gioco-cognitivo",
+        "task": [
+            {
+                "id": "go",
+                "trigger": null,
+                "events": ["engine/asr: Welcome to the Quotionary, let's get to know each other better, what's your name?"],
+                "next": "ask_name"
+            },
+            {
+                "id": "ask_name",
+                "trigger": ["{name}"],
+                "args": {
+                    "name": ["mark", "john", "ghezae"]
+                },
+                "events": ["engine/asr: Pleased to meet you"],
+                "next": "question_repeat_name"
+            },
+            {
+                "id": "question_repeat_name",
+                "trigger": null,
+                "events": ["engine/asr: let's see if you remember your name, what's your name?"],
+                "next": "response_repeat_name"
+            },
+            {
+                "id": "response_repeat_name",
+                "trigger": ["[name]"],
+                "fail": "wrong_name",
+                "next": "correct_name"
+            },
+            {
+                "id": "correct_name",
+                "trigger": null,
+                "events": ["engine/asr: You said well!", "hw/skill/set:NOD"],
+                "next": "question_city"
+            },
+            {
+                "id": "wrong_name",
+                "trigger": null,
+                "events": ["engine/asr: I'm sorry, that's not correct, retry", "hw/skill/set:SHAKE_HEAD"],
+                "next": "response_repeat_name",
+                "fail": "question_city",
+                "count": 3
+            },
+            {
+                "id": "question_movie",
+                "trigger": null,
+                "events": ["engine/asr: what type of movie do you like?"],
+                "next": "response_movie"
+            },
+            {
+                "id": "response_movie",
+                "trigger": ["{movie_type}"],
+                "args": {
+                    "movie_type": ["Drama", "Comedy", "Action"]
+                },
+                "events": ["engine/asr: Good","hw/skill/set:NOD"],
+                "next": "question_movie"
+            },
+            {
+                "id": "question_movie",
+                "trigger": null,
+                "events": ["engine/asr: what's your favourite movie?"],
+                "next": "response_movie"
+            },
+            {
+                "id": "response_movie",
+                "trigger": ["{movie}"],
+                "args": {
+                    "age": ["Up","Vacation","Her"]
+                },
+                "events": ["engine/asr: Good!"],
+                "next": "question_with"
+            },
+            {
+                "id": "question_with",
+                "trigger": null,
+                "events": ["engine/asr: with whom did you watch the movie?"],
+                "next": "response_with"
+            },
+            {
+                "id": "response_with",
+                "trigger": ["{with}"],
+                "args": {
+                    "age": ["Family","Friends"]
+                },
+                "events": ["engine/asr: Good"],
+                "next": "question_rate"
+            },
+            {
+                "id": "question_rate",
+                "trigger": null,
+                "events": ["engine/asr: how would you rate this movie from one to five?"],
+                "next": "response_rate"
+            },
+            {
+                "id": "response_rate",
+                "trigger": ["{rate}"],
+                "args": {
+                    "age": ["one","two","three","four","five"]
+                },
+                "events": ["engine/asr: Thanks!", "hw/skill/set:HAND_KISS"],
+                "next": "end_game"
+            },
+            {
+                "id": "end_game",
+                "trigger": null,
+                "events": ["engine/asr: Thank you for your responses, see you next time!", "hw/skill/set:SAY_HI"]
+            }
+        ]
+    }
+]

@@ -1,7 +1,7 @@
 //src/App.js
 import { useState } from "react";
 import axios from "axios";
-
+import logo from './logo.png';
 
 const App = () => {
      
@@ -15,8 +15,8 @@ const App = () => {
     };
  
     const onSubmit = (e) => {
-        e.preventDefault() 
-        alert(URL.createObjectURL(selectedImage))
+        // e.preventDefault() 
+        // alert(URL.createObjectURL(selectedImage))
         uploadImage(selectedImage)
     }
      
@@ -34,7 +34,7 @@ const App = () => {
             "content-type": "multipart/form-data"
           }
         };
-        const url = "http://image-loadb-com61um3qhxs-d45d9c7fb0d12075.elb.eu-west-3.amazonaws.com:8000/apps/srcnn/enhance";
+        const url = "http://image-loadb-kcw80t7cfj6v-c88f9f531e9e21e1.elb.eu-west-3.amazonaws.com:8000/apps/srcnn/enhance";
     
         const res = await axios.post(url, formData, config);
       const urls = window.URL.createObjectURL(new Blob([res.data]),{ type: "image/jpeg" });
@@ -50,26 +50,28 @@ const App = () => {
     };
 
     // This function will be triggered when the "Remove This Image" button is clicked
-    const removeSelectedImage = () => {
-        setSelectedImage();
-    };
+    // const removeSelectedImage = () => {
+    //     setSelectedImage();
+    // };
  
   return (
     <>
-      <div className="container" >
-        <h1> Image Enhancement </h1>
+      <div className="container-fluid customcolor text-center" >
+        <img src={logo} alt="logo" width="280" height="280" />
         <div className="row">
             <form onSubmit={ onSubmit } className="form-inline">
-                <div className="form-group">
+                <div className="form-group form-control-sm">
                 <label> </label>
                 <input type="file" className="form-control" onChange={imageChange} accept="image/jpeg"/>
                 </div> <br/>
                 <button type="submit" className="btn btn-success" >Enhance</button>
             </form>
 
-        {selectedImage && (
+        {/* {selectedImage && (
           <div style={styles.preview}>
             <img
+            width="400"
+            height="400"
               src={URL.createObjectURL(selectedImage)}
               style={styles.image}
               alt="Thumb"
@@ -78,7 +80,7 @@ const App = () => {
               Remove This Image
             </button>
           </div>
-        )}
+        )} */}
         </div>
       </div>
     </>
@@ -88,21 +90,21 @@ const App = () => {
 export default App;
  
 // Just some styles
-const styles = {
-  preview: {
-    marginTop: 50,
-    display: "flex",
-    flexDirection: "column",
-  },
-  image: { maxWidth: "100%", maxHeight: 320 },
-  delete: {
-    cursor: "pointer",
-    padding: 15,
-    background: "red",
-    color: "white",
-    border: "none",
-  },
-};
+// const styles = {
+//   preview: {
+//     marginTop: 50,
+//     display: "flex",
+//     flexDirection: "column",
+//   },
+//   image: { maxWidth: "100%", maxHeight: 320 },
+//   delete: {
+//     cursor: "pointer",
+//     padding: 15,
+//     background: "red",
+//     color: "white",
+//     border: "none",
+//   },
+// };
 
 // function Download(arrayBuffer, type) {
 //   var blob = new Blob([arrayBuffer], { type: type });

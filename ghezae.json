@@ -1,0 +1,398 @@
+[
+    {
+        "skill": "gioco-cognitivo",
+        "task": [
+            {
+                "id": "go",
+                "trigger": null,
+                "events": ["engine/asr: Welcome to the game, let's get to know each other better, what's your name?"],
+                "next": "ask_name"
+            },
+            {
+                "id": "ask_name",
+                "trigger": ["{name}"],
+                "args": {
+                    "name": ["marianna", "angelo", "ghezae"]
+                },
+                "events": ["engine/asr: Pleased to meet you"],
+                "next": "question_repeat_name"
+            },
+            {
+                "id": "question_repeat_name",
+                "trigger": null,
+                "events": ["engine/asr: let's see if you remember your name, what's your name?"],
+                "next": "response_repeat_name"
+            },
+            {
+                "id": "response_repeat_name",
+                "trigger": ["[name]"],
+                "fail": "wrong_name",
+                "next": "correct_name"
+            },
+            {
+                "id": "correct_name",
+                "trigger": null,
+                "events": ["engine/asr: You said well!", "hw/skill/set:NOD"],
+                "next": "question_city"
+            },
+            {
+                "id": "wrong_name",
+                "trigger": null,
+                "events": ["engine/asr: I'm sorry, that's not correct, riprova", "hw/skill/set:SHAKE_HEAD"],
+                "next": "response_repeat_name",
+                "fail": "question_city",
+                "count": 3
+            },
+            {
+                "id": "question_city",
+                "trigger": null,
+                "events": ["engine/asr: in which city do you live?"],
+                "next": "response_city"
+            },
+            {
+                "id": "response_city",
+                "trigger": ["{city}"],
+                "args": {
+                    "city": ["Bari", "Molfetta", "Brindisi", "Santeramo"]
+                },
+                "events": ["engine/asr: Good","hw/skill/set:NOD"],
+                "next": "question_remember_city"
+            },
+            {
+                "id": "question_remember_city",
+                "trigger": null,
+                "events": ["engine/asr: let's see if you remember where you live, what city do you live in?"],
+                "next": "response_remember_city"
+            },
+            {
+                "id": "response_remember_city",
+                "trigger": ["[city]"],
+                "events": ["engine/asr: Ok","hw/skill/set:NOD"],
+                "fail": "wrong_city",
+                "next": "correct_city"
+            },
+            {
+                "id": "correct_city",
+                "trigger": null,
+                "events": ["engine/asr: You said well!", "hw/skill/set:NOD"],
+                "next": "question_age"
+            },
+            {
+                "id": "wrong_city",
+                "trigger": null,
+                "events": ["engine/asr: I'm sorry, it's not correct, try again", "hw/skill/set:SHAKE_HEAD"],
+                "next": "question_remember_city"
+            },
+            {
+                "id": "question_age",
+                "trigger": null,
+                "events": ["engine/asr: how old are you?"],
+                "next": "response_age"
+            },
+            {
+                "id": "response_age",
+                "trigger": ["{age}"],
+                "args": {
+                    "age": ["twenty four","sixty five","twenty six"]
+                },
+                "events": ["engine/asr: Ottimo!"],
+                "next": "question_remember_age"
+            },
+            {
+                "id": "question_remember_age",
+                "trigger": null,
+                "events": ["engine/asr: let's see if you remember your age, how old are you?"],
+                "next": "response_remember_age"
+            },
+            {
+                "id": "response_remember_age",
+                "trigger": ["[age]"],
+                "events": ["engine/asr: Great!","hw/skill/set:NOD"],
+                "fail": "wrong_age",
+                "next": "correct_age"
+            },
+            {
+                "id": "correct_age",
+                "trigger": null,
+                "events": ["engine/asr: You said well!", "hw/skill/set:NOD"],
+                "next": "question_live_alone"
+            },
+            {
+                "id": "wrong_age",
+                "trigger": null,
+                "events": ["engine/asr: I'm sorry, it's not correct, try again", "hw/skill/set:SHAKE_HEAD"],
+                "next": "question_remember_age"
+            },
+            {
+                "id": "question_live_alone",
+                "trigger": null,
+                "events": ["engine/asr: you live alone?"],
+                "next": "response_live_alone"
+            },
+            {
+                "id": "response_live_alone",
+                "trigger": ["no"],
+                "events": ["engine/asr: Ok!","hw/skill/set:NOD"],
+                "fail": "question_have_child",
+                "next": "question_who_lives_with"
+            },
+            {
+                "id": "question_who_lives_with",
+                "trigger": null,
+                "events": ["engine/asr: you live alone?"],
+                "next": "response_who_lives_with"
+            },
+            {
+                "id": "response_who_lives_with",
+                "trigger": ["{housemates}"],
+                "args": {
+                    "housemates": ["daughter", "son", "grandson", "mother", "father", "caregiver"]
+                },
+                "events": ["engine/asr: Good!"],
+                "next": "question_have_child",
+                "fail": "question_who_lives_with"
+            },
+            {
+                "id": "question_have_child",
+                "trigger": null,
+                "events": ["engine/asr: do you have any children?"],
+                "next": "response_have_child"
+            },
+            {
+                "id": "response_have_child",
+                "trigger": ["yes"],
+                "events": ["engine/asr: Great!","hw/skill/set:NOD"],
+                "fail": "question_bath_alone",
+                "next": "question_child_names"
+            },
+            {
+                "id": "question_child_names",
+                "trigger": null,
+                "events": ["engine/asr: what is the name of one of your children?"],
+                "next": "response_child_names"
+            },
+            {
+                "id": "response_child_names",
+                "trigger": ["{children}"],
+                "args": {
+                    "children": ["Gabriele", "Lina", "Gaetano"]
+                },
+                "events": ["engine/asr: Complimenti!"],
+                "next": "question_bath_alone"
+            },
+            {
+                "id": "question_bath_alone",
+                "trigger": null,
+                "events": ["engine/asr: you wash yourself?"],
+                "next": "response_bath_alone"
+            },
+            {
+                "id": "response_bath_alone",
+                "trigger": ["{bathAutonomy}"],
+                "args": {
+                    "bathAutonomy": ["yes", "no"]
+                },
+                "events": ["engine/asr: Ok!","hw/skill/set:NOD"],
+                "next": "question_dress_alone"
+            },
+            {
+                "id": "question_dress_alone",
+                "trigger": null,
+                "events": ["engine/asr: you dress yourself?"],
+                "next": "response_dress_alone"
+            },
+            {
+                "id": "response_dress_alone",
+                "trigger": ["{dressAutonomy}"],
+                "args": {
+                    "dressAutonomy": ["yes", "no"]
+                },
+                "events": ["engine/asr: Ok!","hw/skill/set:NOD"],
+                "next": "question_cook_alone"
+            },
+            {
+                "id": "question_cook_alone",
+                "trigger": null,
+                "events": ["engine/asr: you cook by yourself?"],
+                "next": "response_cook_alone"
+            },
+            {
+                "id": "response_cook_alone",
+                "trigger": ["{cookAutonomy}"],
+                "args": {
+                    "cookAutonomy": ["yes", "no"]
+                },
+                "events": ["engine/asr: OK!","hw/skill/set:NOD"],
+                "next": "question_has_pathology"
+            },
+            {
+                "id": "question_has_pathology",
+                "trigger": null,
+                "events": ["engine/asr: you have pathologies?"],
+                "next": "response_has_pathology"
+            },
+            {
+                "id": "response_has_pathology",
+                "trigger": ["si"],
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "fail": "question_take_medicine",
+                "next": "question_what_pathology"
+            },
+            {
+                "id": "question_what_pathology",
+                "trigger": null,
+                "events": ["engine/asr: what diseases do you suffer from?"],
+                "next": "response_what_pathology"
+            },
+            {
+                "id": "response_what_pathology",
+                "trigger": ["{pathology}"],
+                "args": {
+                    "pathology": ["arthritis", "diabetes"]
+                },
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "next": "question_take_medicine",
+                "fail": "question_what_pathology"
+            },
+            {
+                "id": "question_take_medicine",
+                "trigger": null,
+                "events": ["engine/asr: take medication?"],
+                "next": "response_take_medicine"
+            },
+            {
+                "id": "response_take_medicine",
+                "trigger": ["si"],
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "fail": "question_family_visit",
+                "next": "question_what_medicine"
+            },
+            {
+                "id": "question_what_medicine",
+                "trigger": null,
+                "events": ["engine/asr: what drugs do you take?"],
+                "next": "response_what_medicine"
+            },
+            {
+                "id": "response_what_medicine",
+                "trigger": ["{medicine}"],
+                "args": {
+                    "medicine": ["vertiserc", "anticoagulant", "I do not know"]
+                },
+                "events": ["engine/asr: Agree!"],
+                "next": "question_family_visit",
+                "fail": "question_what_medicine"
+            },
+            {
+                "id": "question_family_visit",
+                "trigger": null,
+                "events": ["engine/asr: do you meet your family members?"],
+                "next": "response_family_visit"
+            },
+            {
+                "id": "response_family_visit",
+                "trigger": ["{familyVisit}"],
+                "args": {
+                    "familyVisit": ["yes", "no"]
+                },
+                "events": ["engine/asr: Ok!"],
+                "next": "question_friends_visit"
+            },
+            {
+                "id": "question_friends_visit",
+                "trigger": null,
+                "events": ["engine/asr: do you meet your friends?"],
+                "next": "response_friends_visit"
+            },
+            {
+                "id": "response_friends_visit",
+                "trigger": ["{friendsVisit}"],
+                "args": {
+                    "friendsVisit": ["yes", "no"]
+                },
+                "events": ["engine/asr: Ok!"],
+                "next": "question_likes_tv"
+            },
+            {
+                "id": "question_likes_tv",
+                "trigger": null,
+                "events": ["engine/asr: you like watching TV?"],
+                "next": "question_likes_cook"
+            },
+            {
+                "id": "response_likes_tv",
+                "trigger": ["{likesTV}"],
+                "args": {
+                    "likesTV": ["si", "no"]
+                },
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "next": "question_likes_cook"
+            },
+            {
+                "id": "question_likes_cook",
+                "trigger": null,
+                "events": ["engine/asr: do you like cooking?"],
+                "next": "question_likes_go_out"
+            },
+            {
+                "id": "question_likes_cook",
+                "trigger": ["{likesCooking}"],
+                "args": {
+                    "likesCooking": ["yes", "no"]
+                },
+                "events": ["engine/asr: Ok!","hw/skill/set:NOD"],
+                "next": "question_likes_go_out"
+            },
+            {
+                "id": "question_likes_go_out",
+                "trigger": null,
+                "events": ["engine/asr: do you like walking?"],
+                "next": "response_likes_go_out"
+            },
+            {
+                "id": "response_likes_go_out",
+                "trigger": ["{likesGoOut}"],
+                "args": {
+                    "likesGoOut": ["yes", "no"]
+                },
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "next": "question_likes_read"
+            },
+            {
+                "id": "question_likes_read",
+                "trigger": null,
+                "events": ["engine/asr: do you like reading?"],
+                "next": "response_likes_read"
+            },
+            {
+                "id": "response_likes_read",
+                "trigger": ["{book_like}"],
+                "args": {
+                    "book_like": ["yes", "enough", "no"]
+                },
+                "events": ["engine/asr: Agree!","hw/skill/set:NOD"],
+                "next": "question_book_genres"
+            },
+            {
+                "id": "question_book_genres",
+                "trigger": null,
+                "events": ["engine/asr: what kind of books do you like?"],
+                "next": "response_book_genres"
+            },
+            {
+                "id": "response_book_genres",
+                "trigger": ["{book_genres}"],
+                "args": {
+                    "book_genres": ["avventura", "romanzi rosa", "romanzi gialli", "thriller"]
+                },
+                "events": ["engine/asr: quale genere di libri ti piace?"],
+                "next": "end_game"
+            },
+            {
+                "id": "end_game",
+                "trigger": null,
+                "events": ["engine/asr: Nice talking to you, thanks for answering my questions, see you next time!", "hw/skill/set:SAY_HI"]
+            }
+        ]
+    }
+]
